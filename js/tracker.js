@@ -213,7 +213,7 @@ const OrderTracker = (function() {
                 </div>
               </div>
             </div>
-            <div class="flex items-center gap-2 w-full md:w-auto justify-end z-10">
+            <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-start md:justify-end z-10">
               <a 
                 href="${mapsLink}" 
                 target="_blank" 
@@ -250,7 +250,7 @@ const OrderTracker = (function() {
         <!-- 6-Stage Timeline -->
         <div class="mt-8">
           <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">Live Garment Journey</h4>
-          <div class="grid grid-cols-2 md:grid-cols-6 gap-3 sm:gap-4 relative">
+          <div class="grid grid-cols-2 md:grid-cols-6 gap-2.5 sm:gap-4 relative">
             ${stages.map((stage, idx) => {
               const isPast = idx < currentOrder.currentStageIndex;
               const isCurrent = idx === currentOrder.currentStageIndex;
@@ -258,12 +258,12 @@ const OrderTracker = (function() {
               return `
                 <div class="flex flex-col items-center text-center p-3 sm:p-4 rounded-2xl transition-all ${
                   isCurrent 
-                    ? 'bg-gradient-to-br from-emerald-500 to-cyan-500 text-slate-950 shadow-xl shadow-cyan-500/30 ring-2 ring-cyan-300/60 scale-105' 
+                    ? 'bg-gradient-to-br from-emerald-500 to-cyan-500 text-slate-950 shadow-xl shadow-cyan-500/30 ring-2 ring-cyan-300/60 sm:scale-105' 
                     : isPast 
                       ? 'bg-emerald-500/10 border border-emerald-500/35 text-slate-200' 
                       : 'bg-slate-950/70 border border-white/10 text-slate-500 opacity-60'
                 }">
-                  <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3 text-sm font-bold ${
+                  <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center mb-2.5 sm:mb-3 text-sm font-bold ${
                     isCurrent 
                       ? 'bg-slate-950 text-cyan-400 shadow-md' 
                       : isPast 
@@ -282,10 +282,10 @@ const OrderTracker = (function() {
 
         <!-- Tagged Garment Inventory -->
         <div class="mt-8 pt-6 border-t border-white/10">
-          <div class="flex items-center justify-between mb-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div class="flex items-center gap-2">
-              <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i>
-              <h4 class="text-sm font-bold text-white font-heading">Garment Security Manifest (${currentOrder.items.length} items logged)</h4>
+              <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+              <h4 class="text-sm font-bold text-white font-heading">Garment Security Manifest (${currentOrder.items.length} items)</h4>
             </div>
             <span class="text-xs font-semibold text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-1 rounded-full flex items-center gap-1">
               <i data-lucide="check" class="w-3 h-3"></i> 100% Zero-Loss Tracked
@@ -294,12 +294,12 @@ const OrderTracker = (function() {
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             ${currentOrder.items.map(item => `
-              <div class="flex items-center justify-between p-3 rounded-xl bg-slate-950/75 border border-white/10 text-xs">
-                <div class="flex items-center gap-2.5">
-                  <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
-                  <span class="font-medium text-slate-200">${item.name}</span>
+              <div class="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-slate-950/75 border border-white/10 text-xs">
+                <div class="flex items-center gap-2 min-w-0">
+                  <div class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></div>
+                  <span class="font-medium text-slate-200 truncate">${item.name}</span>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5 shrink-0">
                   <span class="font-mono text-[10px] text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">${item.tag}</span>
                   <span class="font-medium text-cyan-300 bg-cyan-500/15 border border-cyan-500/25 px-2 py-0.5 rounded-full text-[11px]">${item.status}</span>
                 </div>

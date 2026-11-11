@@ -191,9 +191,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Close mobile drawer on link click
-  document.querySelectorAll('#mobile-nav-drawer a').forEach(link => {
-    link.addEventListener('click', () => {
+  // Close mobile drawer on link or modal trigger click
+  document.querySelectorAll('#mobile-nav-drawer a, #mobile-nav-drawer button:not(#mobile-nav-close)').forEach(el => {
+    el.addEventListener('click', () => {
       if (mobileMenu) mobileMenu.classList.add('hidden');
     });
   });
@@ -276,6 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize all modular components
   if (window.SoapBubbleEngine) window.SoapBubbleEngine.init('hero-bubbles-field');
+  if (window.BookingVideoGuide) window.BookingVideoGuide.init();
   if (window.WasherSimulator) window.WasherSimulator.init();
   if (window.WrinkleEraser) window.WrinkleEraser.init();
   if (window.SockGame) window.SockGame.init();

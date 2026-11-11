@@ -74,11 +74,17 @@ const WrinkleEraser = (function() {
       ctx.lineWidth = 3;
     }
 
-    // Overlay text instruction
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.75)';
-    ctx.font = 'bold 14px "Plus Jakarta Sans", sans-serif';
+    // Overlay text instruction (Responsive 2-line wrap on phones)
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
     ctx.textAlign = 'center';
-    ctx.fillText('💨 Drag Iron or Finger Across To Erase Wrinkles with Steam', canvas.width / 2, canvas.height / 2);
+    if (canvas.width < 460) {
+      ctx.font = 'bold 12px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('💨 Drag Finger or Iron Across', canvas.width / 2, canvas.height / 2 - 8);
+      ctx.fillText('To Erase Wrinkles with Steam', canvas.width / 2, canvas.height / 2 + 12);
+    } else {
+      ctx.font = 'bold 14px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('💨 Drag Iron or Finger Across To Erase Wrinkles with Steam', canvas.width / 2, canvas.height / 2);
+    }
   }
 
   function bindEvents() {

@@ -95,11 +95,17 @@ const AdminPortal = (function() {
   }
 
   function updateBadge() {
-    const badge = document.getElementById('admin-orders-count-badge');
     const pendingCount = orders.filter(o => o.paymentStatus === 'pending').length;
+    const badge = document.getElementById('admin-orders-count-badge');
     if (badge) {
       badge.innerText = `${pendingCount} pending`;
     }
+    document.querySelectorAll('[data-admin-count-short]').forEach(el => {
+      el.innerText = pendingCount;
+    });
+    document.querySelectorAll('[data-admin-count-full]').forEach(el => {
+      el.innerText = `${pendingCount} pending`;
+    });
   }
 
   function bindAdminTriggers() {
