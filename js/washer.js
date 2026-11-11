@@ -121,7 +121,7 @@ const WasherSimulator = (function() {
     if (isRunning) {
       if (toggleBtn) {
         toggleBtn.innerHTML = `<i data-lucide="pause" class="w-4 h-4"></i> <span>Pause Wash Cycle</span>`;
-        toggleBtn.className = 'px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition-all';
+        toggleBtn.className = 'w-full px-5 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition-all';
       }
       if (water) {
         water.style.height = cycles[activeCycleKey].waterHeight;
@@ -137,7 +137,7 @@ const WasherSimulator = (function() {
     } else {
       if (toggleBtn) {
         toggleBtn.innerHTML = `<i data-lucide="play" class="w-4 h-4"></i> <span>Start Washing Cycle</span>`;
-        toggleBtn.className = 'px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 transition-all';
+        toggleBtn.className = 'w-full px-5 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 transition-all';
       }
       if (drum) {
         drum.className = 'washer-drum-inner';

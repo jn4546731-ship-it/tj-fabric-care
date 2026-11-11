@@ -86,10 +86,10 @@ const LaundryCalculator = (function() {
     tabsContainer.innerHTML = categories.map(cat => `
       <button 
         onclick="LaundryCalculator.changeCategory('${cat.key}')"
-        class="flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm transition-all whitespace-nowrap ${
+        class="flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm transition-all whitespace-nowrap ${
           state.activeCategory === cat.key 
-            ? 'bg-sky-600 text-white shadow-lg shadow-sky-500/25' 
-            : 'bg-white/80 text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80'
+            ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-black shadow-lg shadow-emerald-500/25' 
+            : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-white/10'
         }">
         <i data-lucide="${cat.icon}" class="w-4 h-4"></i>
         <span>${cat.label}</span>
@@ -108,30 +108,30 @@ const LaundryCalculator = (function() {
     listContainer.innerHTML = currentList.map(item => {
       const qty = state.items[item.id] || 0;
       return `
-        <div class="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-sky-300 transition-all shadow-sm hover:shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-white/10 hover:border-cyan-500/40 transition-all shadow-lg backdrop-blur-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div class="flex items-start gap-4">
-            <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 border border-sky-100">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center shrink-0 border border-cyan-500/30">
               <i data-lucide="${item.icon}" class="w-6 h-6"></i>
             </div>
             <div>
-              <div class="flex items-center gap-2">
-                <h4 class="font-bold text-slate-900 text-base font-heading">${item.name}</h4>
-                <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-100 font-mono">KSh ${item.price.toLocaleString()} / ${item.unit}</span>
+              <div class="flex flex-wrap items-center gap-2">
+                <h4 class="font-bold text-white text-base font-heading">${item.name}</h4>
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono">KSh ${item.price.toLocaleString()} / ${item.unit}</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-500 mt-1">${item.desc}</p>
+              <p class="text-xs sm:text-sm text-slate-400 mt-1">${item.desc}</p>
             </div>
           </div>
           <div class="flex items-center justify-end gap-3 shrink-0">
             <button 
               onclick="LaundryCalculator.updateItemQty('${item.id}', -1)"
-              class="stepper-btn w-9 h-9 rounded-xl border border-slate-200 flex items-center justify-center text-slate-600 hover:border-sky-500 hover:text-sky-600 bg-slate-50 font-bold"
+              class="stepper-btn w-9 h-9 rounded-xl border border-white/15 flex items-center justify-center text-slate-300 bg-slate-950 font-bold"
               ${qty === 0 ? 'disabled style="opacity: 0.35; cursor: not-allowed;"' : ''}>
               <i data-lucide="minus" class="w-4 h-4"></i>
             </button>
-            <span class="w-8 text-center font-bold text-slate-800 text-base">${qty}</span>
+            <span class="w-8 text-center font-bold text-white font-mono text-base">${qty}</span>
             <button 
               onclick="LaundryCalculator.updateItemQty('${item.id}', 1)"
-              class="stepper-btn w-9 h-9 rounded-xl border border-slate-200 flex items-center justify-center text-slate-600 hover:border-sky-500 hover:text-sky-600 bg-slate-50 font-bold">
+              class="stepper-btn w-9 h-9 rounded-xl border border-white/15 flex items-center justify-center text-slate-300 bg-slate-950 font-bold">
               <i data-lucide="plus" class="w-4 h-4"></i>
             </button>
           </div>
@@ -162,11 +162,11 @@ const LaundryCalculator = (function() {
         const scentKey = btn.getAttribute('data-scent');
         state.scent = scentKey;
         document.querySelectorAll('[data-scent]').forEach(b => {
-          b.classList.remove('border-sky-500', 'bg-sky-50', 'text-sky-700', 'ring-2', 'ring-sky-200');
-          b.classList.add('border-slate-200');
+          b.classList.remove('border-emerald-400', 'bg-emerald-500/15', 'text-emerald-300', 'ring-2', 'ring-emerald-500/30');
+          b.classList.add('border-white/10', 'bg-slate-950/70');
         });
-        btn.classList.add('border-sky-500', 'bg-sky-50', 'text-sky-700', 'ring-2', 'ring-sky-200');
-        btn.classList.remove('border-slate-200');
+        btn.classList.add('border-emerald-400', 'bg-emerald-500/15', 'text-emerald-300', 'ring-2', 'ring-emerald-500/30');
+        btn.classList.remove('border-white/10', 'bg-slate-950/70');
         updateSummary();
         if (window.SoundEffects) window.SoundEffects.playSwitch();
       });
@@ -178,11 +178,11 @@ const LaundryCalculator = (function() {
         const stainKey = btn.getAttribute('data-stain');
         state.stainTreatment = stainKey;
         document.querySelectorAll('[data-stain]').forEach(b => {
-          b.classList.remove('border-sky-500', 'bg-sky-50', 'text-sky-700', 'ring-2', 'ring-sky-200');
-          b.classList.add('border-slate-200');
+          b.classList.remove('border-emerald-400', 'bg-emerald-500/15', 'text-emerald-300', 'ring-2', 'ring-emerald-500/30');
+          b.classList.add('border-white/10', 'bg-slate-950/70');
         });
-        btn.classList.add('border-sky-500', 'bg-sky-50', 'text-sky-700', 'ring-2', 'ring-sky-200');
-        btn.classList.remove('border-slate-200');
+        btn.classList.add('border-emerald-400', 'bg-emerald-500/15', 'text-emerald-300', 'ring-2', 'ring-emerald-500/30');
+        btn.classList.remove('border-white/10', 'bg-slate-950/70');
         updateSummary();
         if (window.SoundEffects) window.SoundEffects.playSwitch();
       });
@@ -194,11 +194,11 @@ const LaundryCalculator = (function() {
         const speedKey = btn.getAttribute('data-speed');
         state.speed = speedKey;
         document.querySelectorAll('[data-speed]').forEach(b => {
-          b.classList.remove('border-sky-500', 'bg-sky-50', 'text-sky-700', 'ring-2', 'ring-sky-200');
-          b.classList.add('border-slate-200');
+          b.classList.remove('border-emerald-400', 'bg-emerald-500/15', 'text-emerald-300', 'ring-2', 'ring-emerald-500/30');
+          b.classList.add('border-white/10', 'bg-slate-950/70');
         });
-        btn.classList.add('border-sky-500', 'bg-sky-50', 'text-sky-700', 'ring-2', 'ring-sky-200');
-        btn.classList.remove('border-slate-200');
+        btn.classList.add('border-emerald-400', 'bg-emerald-500/15', 'text-emerald-300', 'ring-2', 'ring-emerald-500/30');
+        btn.classList.remove('border-white/10', 'bg-slate-950/70');
         updateSummary();
         if (window.SoundEffects) window.SoundEffects.playSwitch();
       });
@@ -304,9 +304,9 @@ const LaundryCalculator = (function() {
     if (addOnsEl) {
       if (addOnTotal > 0) {
         addOnsEl.innerHTML = `
-          <div class="flex justify-between text-xs text-slate-500">
+          <div class="flex justify-between text-xs text-slate-400">
             <span>Specialty Add-ons:</span>
-            <span>+KSh ${addOnTotal.toLocaleString()}</span>
+            <span class="text-cyan-400 font-semibold font-mono">+KSh ${addOnTotal.toLocaleString()}</span>
           </div>
         `;
       } else {
@@ -336,9 +336,9 @@ const LaundryCalculator = (function() {
         `;
       } else {
         itemsListEl.innerHTML = data.selectedItemList.map(item => `
-          <div class="flex items-center justify-between py-1.5 text-xs text-slate-700 border-b border-slate-100 last:border-0">
+          <div class="flex items-center justify-between py-1.5 text-xs text-slate-300 border-b border-white/10 last:border-0">
             <span class="truncate max-w-[170px]">${item.quantity}x ${item.name.split('(')[0]}</span>
-            <span class="font-semibold text-slate-900 font-mono">KSh ${item.lineTotal.toLocaleString()}</span>
+            <span class="font-semibold text-emerald-300 font-mono">KSh ${item.lineTotal.toLocaleString()}</span>
           </div>
         `).join('');
       }

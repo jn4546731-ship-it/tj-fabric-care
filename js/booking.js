@@ -74,9 +74,9 @@ const BookingWizard = (function() {
         if (banner) {
           banner.classList.remove('hidden');
           banner.innerHTML = `
-            <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between text-xs text-emerald-800">
+            <div class="p-3 bg-emerald-500/15 border border-emerald-500/30 rounded-xl flex items-center justify-between text-xs text-emerald-300">
               <span class="font-medium">Using ${calcData.data.itemCount} items from your Price Calculator (KSh ${calcData.data.finalTotal.toLocaleString()})</span>
-              <span class="font-bold bg-emerald-600 text-white px-2 py-0.5 rounded">Synced</span>
+              <span class="font-bold bg-emerald-500 text-slate-950 px-2 py-0.5 rounded">Synced</span>
             </div>
           `;
         }
@@ -98,61 +98,28 @@ const BookingWizard = (function() {
   }
 
   function bindSelectionCards() {
-    // Service selection
-    document.querySelectorAll('[data-book-service]').forEach(card => {
-      card.addEventListener('click', () => {
-        bookingState.serviceType = card.getAttribute('data-book-service');
-        document.querySelectorAll('[data-book-service]').forEach(c => {
-          c.classList.remove('border-sky-500', 'bg-sky-50/70', 'ring-2', 'ring-sky-200');
-          c.classList.add('border-slate-200');
-        });
-        card.classList.add('border-sky-500', 'bg-sky-50/70', 'ring-2', 'ring-sky-200');
-        card.classList.remove('border-slate-200');
-        if (window.SoundEffects) window.SoundEffects.playSwitch();
-      });
-    });
+    const activeClasses = ['border-2', 'border-emerald-400', 'bg-emerald-500/15', 'ring-2', 'ring-emerald-500/30'];
+    const inactiveClasses = ['border', 'border-white/10', 'bg-slate-950/60'];
 
-    // Handoff type
-    document.querySelectorAll('[data-book-handoff]').forEach(card => {
-      card.addEventListener('click', () => {
-        bookingState.handoff = card.getAttribute('data-book-handoff');
-        document.querySelectorAll('[data-book-handoff]').forEach(c => {
-          c.classList.remove('border-sky-500', 'bg-sky-50/70', 'ring-2', 'ring-sky-200');
-          c.classList.add('border-slate-200');
+    const attachSelector = (selector, propName) => {
+      document.querySelectorAll(selector).forEach(card => {
+        card.addEventListener('click', () => {
+          bookingState[propName] = card.getAttribute(selector.replace(/[\[\]]/g, ''));
+          document.querySelectorAll(selector).forEach(c => {
+            c.classList.remove(...activeClasses, 'border-mpesa', 'bg-emerald-50/70', 'border-sky-500', 'bg-sky-50/70', 'ring-sky-200', 'ring-emerald-200', 'border-slate-200');
+            c.classList.add(...inactiveClasses);
+          });
+          card.classList.remove(...inactiveClasses, 'border-slate-200');
+          card.classList.add(...activeClasses);
+          if (window.SoundEffects) window.SoundEffects.playSwitch();
         });
-        card.classList.add('border-sky-500', 'bg-sky-50/70', 'ring-2', 'ring-sky-200');
-        card.classList.remove('border-slate-200');
-        if (window.SoundEffects) window.SoundEffects.playSwitch();
       });
-    });
+    };
 
-    // Time slot
-    document.querySelectorAll('[data-book-slot]').forEach(card => {
-      card.addEventListener('click', () => {
-        bookingState.pickupSlot = card.getAttribute('data-book-slot');
-        document.querySelectorAll('[data-book-slot]').forEach(c => {
-          c.classList.remove('border-sky-500', 'bg-sky-50/70', 'ring-2', 'ring-sky-200');
-          c.classList.add('border-slate-200');
-        });
-        card.classList.add('border-sky-500', 'bg-sky-50/70', 'ring-2', 'ring-sky-200');
-        card.classList.remove('border-slate-200');
-        if (window.SoundEffects) window.SoundEffects.playSwitch();
-      });
-    });
-
-    // M-Pesa Payment Mode
-    document.querySelectorAll('[data-book-payment]').forEach(card => {
-      card.addEventListener('click', () => {
-        bookingState.paymentMode = card.getAttribute('data-book-payment');
-        document.querySelectorAll('[data-book-payment]').forEach(c => {
-          c.classList.remove('border-mpesa', 'bg-emerald-50/70', 'ring-2', 'ring-emerald-200');
-          c.classList.add('border-slate-200');
-        });
-        card.classList.add('border-mpesa', 'bg-emerald-50/70', 'ring-2', 'ring-emerald-200');
-        card.classList.remove('border-slate-200');
-        if (window.SoundEffects) window.SoundEffects.playSwitch();
-      });
-    });
+    attachSelector('[data-book-service]', 'serviceType');
+    attachSelector('[data-book-handoff]', 'handoff');
+    attachSelector('[data-book-slot]', 'pickupSlot');
+    attachSelector('[data-book-payment]', 'paymentMode');
   }
 
   // Live Location & GPS Detection via HTML5 Geolocation API
@@ -179,20 +146,20 @@ const BookingWizard = (function() {
           bookingState.mapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
 
           gpsBtn.disabled = false;
-          gpsBtn.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> <span>Live GPS Location Locked (±${accuracy}m)</span>`;
-          gpsBtn.className = 'w-full py-2.5 px-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center justify-center gap-2';
+          gpsBtn.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> <span>Live GPS Location Locked (±${accuracy}m)</span>`;
+          gpsBtn.className = 'w-full py-2.5 px-3 rounded-xl bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-xs font-bold flex items-center justify-center gap-2';
 
           // Update Location Badge & Google Maps Link
           const gpsStatusBadge = document.getElementById('booking-gps-badge');
           if (gpsStatusBadge) {
             gpsStatusBadge.classList.remove('hidden');
             gpsStatusBadge.innerHTML = `
-              <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-center justify-between">
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-emerald-500/35 text-xs text-emerald-200 flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 gps-pulse"></span>
-                  <span>Coordinates: <strong>${lat.toFixed(4)}, ${lng.toFixed(4)}</strong></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 gps-pulse"></span>
+                  <span>Coordinates: <strong class="font-mono">${lat.toFixed(4)}, ${lng.toFixed(4)}</strong></span>
                 </div>
-                <a href="${bookingState.mapsUrl}" target="_blank" class="text-sky-600 font-bold hover:underline flex items-center gap-1">
+                <a href="${bookingState.mapsUrl}" target="_blank" class="text-cyan-400 font-bold hover:underline flex items-center gap-1">
                   Preview in Maps <i data-lucide="external-link" class="w-3 h-3"></i>
                 </a>
               </div>
@@ -210,7 +177,7 @@ const BookingWizard = (function() {
         },
         (error) => {
           gpsBtn.disabled = false;
-          gpsBtn.innerHTML = `<i data-lucide="map-pin" class="w-4 h-4 text-sky-600"></i> <span>Detect My Live GPS Location</span>`;
+          gpsBtn.innerHTML = `<i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i> <span>Detect My Live GPS Location</span>`;
           showToast('GPS permission denied or timeout. Please type your estate / road below.', 'warning');
         },
         { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
@@ -290,11 +257,11 @@ const BookingWizard = (function() {
       const dot = document.getElementById(`step-indicator-${i}`);
       if (dot) {
         if (i === currentStep) {
-          dot.className = 'w-8 h-2.5 rounded-full bg-sky-600 transition-all';
+          dot.className = 'w-8 h-2.5 rounded-full bg-emerald-400 transition-all';
         } else if (i < currentStep) {
-          dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 transition-all';
+          dot.className = 'w-2.5 h-2.5 rounded-full bg-cyan-400 transition-all';
         } else {
-          dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-200 transition-all';
+          dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-700 transition-all';
         }
       }
     }
@@ -316,10 +283,10 @@ const BookingWizard = (function() {
     if (nextBtn) {
       if (currentStep === totalSteps) {
         nextBtn.innerHTML = `<span>Confirm & Reserve with M-Pesa</span> <i data-lucide="sparkles" class="w-4 h-4"></i>`;
-        nextBtn.className = 'px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-sky-600 text-white font-bold text-sm shadow-lg shadow-emerald-500/30 hover:opacity-95 flex items-center gap-2';
+        nextBtn.className = 'px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/30 hover:opacity-95 flex items-center gap-2';
       } else {
         nextBtn.innerHTML = `<span>Continue</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>`;
-        nextBtn.className = 'px-6 py-3 rounded-xl bg-sky-600 text-white font-bold text-sm shadow-md hover:bg-sky-700 flex items-center gap-2';
+        nextBtn.className = 'px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-black text-sm shadow-md hover:opacity-95 flex items-center gap-2';
       }
     }
 
@@ -362,38 +329,38 @@ const BookingWizard = (function() {
     bookingState.calculatedPrice = numericAmount;
 
     reviewBox.innerHTML = `
-      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2.5 text-xs text-slate-700">
-        <div class="flex justify-between pb-2 border-b border-slate-200">
-          <span class="text-slate-500">Client Name:</span>
-          <span class="font-bold text-slate-900">${bookingState.clientName}</span>
+      <div class="p-4 rounded-2xl bg-slate-950 border border-white/10 space-y-2.5 text-xs text-slate-300">
+        <div class="flex justify-between pb-2 border-b border-white/10">
+          <span class="text-slate-400">Client Name:</span>
+          <span class="font-bold text-white">${bookingState.clientName}</span>
         </div>
-        <div class="flex justify-between pb-2 border-b border-slate-200">
-          <span class="text-slate-500">M-Pesa Safaricom Number:</span>
-          <span class="font-mono font-bold text-emerald-700">${bookingState.phone}</span>
+        <div class="flex justify-between pb-2 border-b border-white/10">
+          <span class="text-slate-400">M-Pesa Safaricom Number:</span>
+          <span class="font-mono font-bold text-emerald-400">${bookingState.phone}</span>
         </div>
-        <div class="flex justify-between pb-2 border-b border-slate-200">
-          <span class="text-slate-500">Location & Area:</span>
-          <span class="font-semibold text-slate-900 text-right">${bookingState.estate} • ${bookingState.address}</span>
+        <div class="flex justify-between pb-2 border-b border-white/10">
+          <span class="text-slate-400">Location & Area:</span>
+          <span class="font-semibold text-white text-right">${bookingState.estate} • ${bookingState.address}</span>
         </div>
-        <div class="flex justify-between pb-2 border-b border-slate-200">
-          <span class="text-slate-500">Google Maps Pin:</span>
-          <a href="${bookingState.mapsUrl}" target="_blank" class="font-bold text-sky-600 hover:underline flex items-center gap-1">
+        <div class="flex justify-between pb-2 border-b border-white/10">
+          <span class="text-slate-400">Google Maps Pin:</span>
+          <a href="${bookingState.mapsUrl}" target="_blank" class="font-bold text-cyan-400 hover:underline flex items-center gap-1">
             Open Pin <i data-lucide="external-link" class="w-3 h-3"></i>
           </a>
         </div>
-        <div class="flex justify-between pb-2 border-b border-slate-200">
-          <span class="text-slate-500">Pickup Window:</span>
-          <span class="font-semibold text-slate-900">${slotNames[bookingState.pickupSlot] || 'Morning Wave'}</span>
+        <div class="flex justify-between pb-2 border-b border-white/10">
+          <span class="text-slate-400">Pickup Window:</span>
+          <span class="font-semibold text-white">${slotNames[bookingState.pickupSlot] || 'Morning Wave'}</span>
         </div>
-        <div class="flex justify-between pb-2 border-b border-slate-200">
-          <span class="text-slate-500">Payment Channel:</span>
-          <span class="font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+        <div class="flex justify-between pb-2 border-b border-white/10">
+          <span class="text-slate-400">Payment Channel:</span>
+          <span class="font-bold text-emerald-300 bg-emerald-500/15 px-2 py-0.5 rounded border border-emerald-500/30">
             M-Pesa STK Push on Delivery
           </span>
         </div>
         <div class="flex justify-between pt-1">
-          <span class="text-slate-500">Total Due (Payable on Return):</span>
-          <span class="font-black text-emerald-700 text-base font-heading">${estPrice}</span>
+          <span class="text-slate-400">Total Due (Payable on Return):</span>
+          <span class="font-black text-emerald-400 text-base font-heading">${estPrice}</span>
         </div>
       </div>
     `;
@@ -465,50 +432,50 @@ const BookingWizard = (function() {
     if (modalBody) {
       modalBody.innerHTML = `
         <div class="text-center py-6">
-          <div class="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 animate-bounce">
+          <div class="w-20 h-20 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto mb-4 animate-bounce">
             <i data-lucide="check" class="w-10 h-10"></i>
           </div>
-          <span class="text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200">
+          <span class="text-xs font-bold uppercase tracking-widest text-emerald-300 bg-emerald-500/15 px-3.5 py-1 rounded-full border border-emerald-500/30">
             Pickup Confirmed • M-Pesa Integrated
           </span>
-          <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 font-heading">
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-3 font-heading">
             Asante, ${bookingState.clientName}!
           </h3>
-          <p class="text-slate-500 text-sm mt-1 max-w-sm mx-auto">
-            Your tracking ID is <span class="font-bold text-sky-600 font-mono text-base">${randomCode}</span>. Our courier will navigate straight to your GPS pin.
+          <p class="text-slate-400 text-sm mt-1 max-w-sm mx-auto">
+            Your tracking ID is <span class="font-bold text-cyan-400 font-mono text-base">${randomCode}</span>. Our courier will navigate straight to your GPS pin.
           </p>
 
-          <div class="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 text-left max-w-sm mx-auto text-xs space-y-2.5">
+          <div class="mt-6 p-4 rounded-2xl bg-slate-950 border border-white/10 text-left max-w-sm mx-auto text-xs space-y-2.5">
             <div class="flex justify-between items-center">
-              <span class="text-slate-500">M-Pesa Phone:</span>
-              <span class="font-mono font-bold text-emerald-700">${bookingState.phone}</span>
+              <span class="text-slate-400">M-Pesa Phone:</span>
+              <span class="font-mono font-bold text-emerald-400">${bookingState.phone}</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-slate-500">Amount Due on Return:</span>
-              <span class="font-bold text-slate-900 font-mono text-sm">KSh ${totalCost.toLocaleString()}</span>
+              <span class="text-slate-400">Amount Due on Return:</span>
+              <span class="font-bold text-white font-mono text-sm">KSh ${totalCost.toLocaleString()}</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-slate-500">Location Pin:</span>
-              <a href="${bookingState.mapsUrl}" target="_blank" class="font-bold text-sky-600 hover:underline flex items-center gap-1">
+              <span class="text-slate-400">Location Pin:</span>
+              <a href="${bookingState.mapsUrl}" target="_blank" class="font-bold text-cyan-400 hover:underline flex items-center gap-1">
                 View in Google Maps <i data-lucide="external-link" class="w-3 h-3"></i>
               </a>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-slate-500">M-Pesa Mode:</span>
-              <span class="font-semibold text-emerald-700">Admin Prompts PIN upon delivery</span>
+              <span class="text-slate-400">M-Pesa Mode:</span>
+              <span class="font-semibold text-emerald-400">Admin Prompts PIN upon delivery</span>
             </div>
           </div>
 
           <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             <button 
               onclick="BookingWizard.goToTracker('${randomCode}')"
-              class="w-full sm:w-auto px-6 py-3 rounded-xl bg-sky-600 text-white font-bold text-sm shadow-lg shadow-sky-500/25 hover:bg-sky-500 flex items-center justify-center gap-2">
+              class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 hover:opacity-95 flex items-center justify-center gap-2">
               <i data-lucide="navigation" class="w-4 h-4"></i>
               Track Live Order
             </button>
             <button 
               onclick="BookingWizard.closeModal(); AdminPortal.openAdminModal();"
-              class="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-900 text-white font-bold text-sm flex items-center justify-center gap-2">
+              class="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-white/15 text-white font-bold text-sm flex items-center justify-center gap-2">
               <i data-lucide="shield" class="w-4 h-4 text-emerald-400"></i>
               View in Admin Dispatch
             </button>

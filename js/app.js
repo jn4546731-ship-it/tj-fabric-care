@@ -107,7 +107,7 @@ const SoundEffects = (function() {
       btn.title = "Unmute UI Sound Effects";
       btn.classList.remove('sound-toggle-active');
     } else {
-      btn.innerHTML = `<i data-lucide="volume-2" class="w-4 h-4 text-sky-600"></i>`;
+      btn.innerHTML = `<i data-lucide="volume-2" class="w-4 h-4 text-emerald-400"></i>`;
       btn.title = "Mute UI Sound Effects";
       btn.classList.add('sound-toggle-active');
     }
@@ -239,14 +239,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const execPrice = document.getElementById('plan-price-exec');
 
       if (isAnnual) {
-        if (soloPrice) soloPrice.innerHTML = `KSh 2,240 <span class="text-xs font-normal text-slate-500">/mo (billed annually)</span>`;
-        if (couplePrice) couplePrice.innerHTML = `KSh 4,160 <span class="text-xs font-normal text-slate-400">/mo (billed annually)</span>`;
-        if (execPrice) execPrice.innerHTML = `KSh 6,800 <span class="text-xs font-normal text-slate-500">/mo (billed annually)</span>`;
+        if (soloPrice) soloPrice.innerHTML = `KSh 2,240 <span class="text-xs font-normal text-slate-400 font-sans">/mo (billed annually)</span>`;
+        if (couplePrice) couplePrice.innerHTML = `KSh 4,160 <span class="text-xs font-normal text-slate-400 font-sans">/mo (billed annually)</span>`;
+        if (execPrice) execPrice.innerHTML = `KSh 6,800 <span class="text-xs font-normal text-slate-400 font-sans">/mo (billed annually)</span>`;
         showToast('Annual billing selected: 20% savings applied!', 'success');
       } else {
-        if (soloPrice) soloPrice.innerHTML = `KSh 2,800 <span class="text-xs font-normal text-slate-500">/mo</span>`;
-        if (couplePrice) couplePrice.innerHTML = `KSh 5,200 <span class="text-xs font-normal text-slate-400">/mo</span>`;
-        if (execPrice) execPrice.innerHTML = `KSh 8,500 <span class="text-xs font-normal text-slate-500">/mo</span>`;
+        if (soloPrice) soloPrice.innerHTML = `KSh 2,800 <span class="text-xs font-normal text-slate-400 font-sans">/mo</span>`;
+        if (couplePrice) couplePrice.innerHTML = `KSh 5,200 <span class="text-xs font-normal text-slate-400 font-sans">/mo</span>`;
+        if (execPrice) execPrice.innerHTML = `KSh 8,500 <span class="text-xs font-normal text-slate-400 font-sans">/mo</span>`;
       }
       if (window.SoundEffects) window.SoundEffects.playSwitch();
     });

@@ -157,14 +157,14 @@ const AdminPortal = (function() {
       const mapsLink = order.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(order.address + ', Kenya')}`;
 
       return `
-        <div class="p-5 rounded-2xl bg-white border ${isPaid ? 'border-emerald-200' : 'border-slate-200/90'} shadow-sm hover:shadow-md transition-all space-y-4">
+        <div class="p-5 rounded-2xl bg-slate-900 border ${isPaid ? 'border-emerald-500/40' : 'border-white/10'} shadow-lg hover:border-cyan-500/30 transition-all space-y-4">
           <!-- Header -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-white/10">
             <div>
               <div class="flex items-center gap-2">
-                <span class="font-mono font-bold text-sm text-slate-900">${order.id}</span>
+                <span class="font-mono font-bold text-sm text-white">${order.id}</span>
                 <span class="text-xs px-2.5 py-0.5 rounded-full font-semibold ${
-                  isPaid ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-amber-50 text-amber-800 border border-amber-200'
+                  isPaid ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30' : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
                 }">
                   ${isPaid ? '✅ Paid via M-Pesa' : '⏳ Awaiting M-Pesa Payment'}
                 </span>
@@ -173,29 +173,29 @@ const AdminPortal = (function() {
             </div>
             <div class="text-left sm:text-right">
               <span class="text-xs text-slate-400 block">Total Due</span>
-              <span class="text-lg font-black text-slate-900 font-heading">KSh ${order.amount.toLocaleString()}</span>
+              <span class="text-lg font-black text-emerald-400 font-heading">KSh ${order.amount.toLocaleString()}</span>
             </div>
           </div>
 
           <!-- Customer & Contact Info -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-white/10">
               <span class="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Client & M-Pesa Contact</span>
-              <div class="font-bold text-slate-900">${order.clientName}</div>
-              <div class="text-slate-600 font-mono mt-0.5 flex items-center gap-1.5">
-                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+              <div class="font-bold text-white">${order.clientName}</div>
+              <div class="text-slate-300 font-mono mt-0.5 flex items-center gap-1.5">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
                 <span>${order.phone}</span>
-                <a href="tel:${order.phone.replace(/\s+/g, '')}" class="text-sky-600 hover:text-sky-700 ml-1">
+                <a href="tel:${order.phone.replace(/\s+/g, '')}" class="text-cyan-400 hover:text-cyan-300 ml-1">
                   <i data-lucide="phone-call" class="w-3.5 h-3.5 inline"></i>
                 </a>
               </div>
             </div>
 
             <!-- Location & Google Maps -->
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="p-3 rounded-xl bg-slate-950/80 border border-white/10">
               <span class="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Pickup / Delivery Address</span>
-              <div class="font-semibold text-slate-800">${order.estate || 'Nairobi'}</div>
-              <div class="text-slate-500 text-[11px] truncate mt-0.5">${order.address}</div>
+              <div class="font-semibold text-white">${order.estate || 'Nairobi'}</div>
+              <div class="text-slate-400 text-[11px] truncate mt-0.5">${order.address}</div>
             </div>
           </div>
 
@@ -206,7 +206,7 @@ const AdminPortal = (function() {
               href="${mapsLink}" 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition-all hover:scale-105">
+              class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-white/15 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition-all hover:scale-105">
               <i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i>
               <span>Navigate in Google Maps</span>
               <i data-lucide="external-link" class="w-3 h-3 text-slate-400"></i>
@@ -222,16 +222,16 @@ const AdminPortal = (function() {
                   <span>Prompt M-Pesa STK Push</span>
                 </button>
               ` : `
-                <div class="text-xs text-emerald-700 font-semibold flex items-center gap-1.5 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
-                  <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
-                  <span>M-Pesa Ref: <strong>${order.mpesaReceipt || 'QGH79XK21M'}</strong></span>
+                <div class="text-xs text-emerald-300 font-semibold flex items-center gap-1.5 bg-emerald-500/15 px-3 py-1.5 rounded-xl border border-emerald-500/30">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                  <span>M-Pesa Ref: <strong class="font-mono text-white">${order.mpesaReceipt || 'QGH79XK21M'}</strong></span>
                 </div>
               `}
 
               <a 
                 href="https://wa.me/${order.rawPhone ? order.rawPhone.replace('+', '') : '254722145890'}?text=${encodeURIComponent('Hello ' + order.clientName + ', TJ Fabric Care is en route with your fresh garments! Total is KSh ' + order.amount + '.')}" 
                 target="_blank" 
-                class="p-2.5 rounded-xl border border-slate-200 hover:border-emerald-300 text-slate-600 hover:text-emerald-600 transition-all"
+                class="p-2.5 rounded-xl border border-white/15 bg-slate-950 hover:border-emerald-400 text-slate-300 hover:text-emerald-400 transition-all"
                 title="Send WhatsApp Delivery Update">
                 <i data-lucide="message-square" class="w-4 h-4"></i>
               </a>
@@ -266,7 +266,7 @@ const AdminPortal = (function() {
 
     if (statusBox) {
       statusBox.innerHTML = `
-        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600">
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-white/10 text-xs text-slate-300">
           Ready to initiate Lipa Na M-Pesa Online prompt to client's Safaricom phone.
         </div>
       `;
@@ -274,6 +274,7 @@ const AdminPortal = (function() {
 
     if (sendBtn) {
       sendBtn.disabled = false;
+      sendBtn.className = 'w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:opacity-95 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 transition-all';
       sendBtn.innerHTML = `<span>Send STK Push Prompt to Customer Phone</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>`;
       sendBtn.onclick = () => executeStkPush(order);
     }
@@ -294,27 +295,27 @@ const AdminPortal = (function() {
 
     // Step 1: Connecting to Daraja Gateway
     statusBox.innerHTML = `
-      <div class="p-3.5 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-800 space-y-1.5">
+      <div class="p-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs text-cyan-200 space-y-1.5">
         <div class="flex items-center gap-2 font-bold">
-          <span class="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
           Step 1: Connecting to Safaricom Daraja API Gateway...
         </div>
-        <p class="text-[11px] text-sky-600">Targeting subscriber MSISDN ${order.phone}...</p>
+        <p class="text-[11px] text-cyan-300">Targeting subscriber MSISDN ${order.phone}...</p>
       </div>
     `;
 
     // Step 2: STK Push prompt rendered on customer handset
     setTimeout(() => {
       statusBox.innerHTML = `
-        <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 space-y-2">
-          <div class="flex items-center gap-2 font-bold text-emerald-800">
-            <i data-lucide="smartphone" class="w-4 h-4 text-emerald-600"></i>
+        <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-200 space-y-2">
+          <div class="flex items-center gap-2 font-bold text-emerald-300">
+            <i data-lucide="smartphone" class="w-4 h-4 text-emerald-400"></i>
             Step 2: STK Push Delivered to Customer's Phone!
           </div>
-          <div class="p-2.5 rounded-lg bg-white border border-emerald-200 font-mono text-[11px] text-slate-800">
+          <div class="p-2.5 rounded-lg bg-slate-950 border border-emerald-500/40 font-mono text-[11px] text-emerald-300">
             "Do you want to pay KSh ${order.amount.toLocaleString()} to TJ FABRIC CARE? Enter M-Pesa PIN:"
           </div>
-          <p class="text-[11px] text-emerald-700 animate-pulse">Waiting for customer to enter 4-digit M-Pesa PIN on phone...</p>
+          <p class="text-[11px] text-emerald-400 animate-pulse">Waiting for customer to enter 4-digit M-Pesa PIN on phone...</p>
         </div>
       `;
       if (window.lucide) window.lucide.createIcons();

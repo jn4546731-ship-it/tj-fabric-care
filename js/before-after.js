@@ -53,11 +53,11 @@ const BeforeAfterSlider = (function() {
         if (stories[key]) {
           activeStoryKey = key;
           tabBtns.forEach(b => {
-            b.classList.remove('bg-sky-600', 'text-white', 'shadow-lg');
-            b.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+            b.classList.remove('bg-gradient-to-r', 'from-emerald-500', 'to-cyan-500', 'text-slate-950', 'font-black', 'shadow-lg', 'shadow-emerald-500/25');
+            b.classList.add('bg-slate-900', 'text-slate-300', 'border', 'border-white/10');
           });
-          btn.classList.add('bg-sky-600', 'text-white', 'shadow-lg');
-          btn.classList.remove('bg-white', 'text-slate-700', 'border');
+          btn.classList.add('bg-gradient-to-r', 'from-emerald-500', 'to-cyan-500', 'text-slate-950', 'font-black', 'shadow-lg', 'shadow-emerald-500/25');
+          btn.classList.remove('bg-slate-900', 'text-slate-300', 'border', 'border-white/10');
           loadStory(key);
           if (window.SoundEffects) window.SoundEffects.playPop();
         }

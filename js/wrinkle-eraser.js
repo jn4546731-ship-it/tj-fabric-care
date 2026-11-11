@@ -175,10 +175,10 @@ const WrinkleEraser = (function() {
     if (badgeEl) {
       if (val >= 90) {
         badgeEl.innerText = '✅ Hotel-Crisp Pressed';
-        badgeEl.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300';
+        badgeEl.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
       } else {
         badgeEl.innerText = '💨 Drag To Steam';
-        badgeEl.className = 'px-3 py-1 rounded-full text-xs font-bold bg-sky-100 text-sky-800 border border-sky-300';
+        badgeEl.className = 'px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30';
       }
     }
   }

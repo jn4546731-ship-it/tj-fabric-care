@@ -96,11 +96,11 @@ const CareDecoder = (function() {
     container.innerHTML = allSymbols.map(s => `
       <button 
         onclick="CareDecoder.selectSymbol('${s.id}')"
-        class="care-icon-btn p-3 rounded-2xl border text-center transition-all bg-white flex flex-col items-center justify-center gap-1.5 shadow-sm hover:shadow-md ${
-          activeSymbol.id === s.id ? 'selected ring-2 ring-sky-400 border-sky-500 bg-sky-50/50' : 'border-slate-200 text-slate-700'
+        class="care-icon-btn p-3 rounded-2xl border text-center transition-all bg-slate-950/70 flex flex-col items-center justify-center gap-1.5 shadow-sm hover:border-cyan-500/40 ${
+          activeSymbol.id === s.id ? 'selected ring-2 ring-cyan-400/40 border-cyan-400 bg-cyan-500/15' : 'border-white/10 text-slate-300'
         }">
         <span class="text-xl sm:text-2xl">${s.symbol}</span>
-        <span class="text-[10px] font-semibold tracking-tight text-slate-600 truncate max-w-full">${s.label.split('(')[0]}</span>
+        <span class="text-[10px] font-semibold tracking-tight text-slate-300 truncate max-w-full">${s.label.split('(')[0]}</span>
       </button>
     `).join('');
   }
@@ -127,29 +127,29 @@ const CareDecoder = (function() {
     if (!container || !activeSymbol) return;
 
     container.innerHTML = `
-      <div class="p-6 rounded-3xl bg-gradient-to-br from-white to-sky-50/30 border border-sky-100 shadow-md">
-        <div class="flex items-center gap-4 pb-4 border-b border-slate-100">
-          <div class="w-16 h-16 rounded-2xl bg-sky-600 text-white flex items-center justify-center text-3xl shadow-lg shadow-sky-500/20 shrink-0">
+      <div class="p-6 rounded-3xl bg-slate-900/85 border border-cyan-500/25 shadow-xl backdrop-blur-md">
+        <div class="flex items-center gap-4 pb-4 border-b border-white/10">
+          <div class="w-16 h-16 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 flex items-center justify-center text-3xl shadow-lg shadow-cyan-500/15 shrink-0">
             ${activeSymbol.symbol}
           </div>
           <div>
-            <span class="text-xs font-bold uppercase tracking-wider text-sky-600">Care Label Diagnosis</span>
-            <h4 class="text-lg sm:text-xl font-bold text-slate-900 font-heading mt-0.5">${activeSymbol.label}</h4>
+            <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Care Label Diagnosis</span>
+            <h4 class="text-lg sm:text-xl font-bold text-white font-heading mt-0.5">${activeSymbol.label}</h4>
           </div>
         </div>
 
         <div class="mt-4 space-y-3">
-          <div class="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200/60 text-xs sm:text-sm text-amber-900 flex items-start gap-2.5">
-            <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5"></i>
+          <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs sm:text-sm text-amber-200 flex items-start gap-2.5">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
             <div>
-              <strong class="font-semibold">The Risk at Home:</strong> ${activeSymbol.warning}
+              <strong class="font-semibold text-amber-300">The Risk at Home:</strong> ${activeSymbol.warning}
             </div>
           </div>
 
-          <div class="p-3.5 rounded-xl bg-emerald-50/80 border border-emerald-200/60 text-xs sm:text-sm text-emerald-900 flex items-start gap-2.5">
-            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+          <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs sm:text-sm text-emerald-200 flex items-start gap-2.5">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
             <div>
-              <strong class="font-semibold">The TJ Care Protocol:</strong> ${activeSymbol.solution}
+              <strong class="font-semibold text-emerald-300">The TJ Care Protocol:</strong> ${activeSymbol.solution}
             </div>
           </div>
         </div>
@@ -171,10 +171,10 @@ const CareDecoder = (function() {
           onclick="CareDecoder.selectStain('${key}')"
           class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 ${
             isSelected 
-              ? 'bg-slate-900 text-white shadow-lg' 
-              : 'bg-white border border-slate-200 text-slate-700 hover:border-slate-300'
+              ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-black shadow-lg shadow-emerald-500/20' 
+              : 'bg-slate-950/70 border border-white/10 text-slate-300 hover:border-cyan-500/40'
           }">
-          <i data-lucide="${item.icon}" class="w-4 h-4 ${isSelected ? 'text-cyan-400' : 'text-slate-500'}"></i>
+          <i data-lucide="${item.icon}" class="w-4 h-4 ${isSelected ? 'text-slate-950' : 'text-cyan-400'}"></i>
           <span>${item.name}</span>
         </button>
       `;
@@ -200,36 +200,36 @@ const CareDecoder = (function() {
     if (!data) return;
 
     container.innerHTML = `
-      <div class="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-md">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
+      <div class="p-6 rounded-3xl bg-slate-900/85 border border-white/10 shadow-xl backdrop-blur-md">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/10">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center">
               <i data-lucide="${data.icon}" class="w-5 h-5"></i>
             </div>
             <div>
-              <h4 class="font-bold text-slate-900 text-base font-heading">${data.name} Emergency Protocol</h4>
-              <p class="text-xs text-rose-600 font-semibold">${data.urgency}</p>
+              <h4 class="font-bold text-white text-base font-heading">${data.name} Emergency Protocol</h4>
+              <p class="text-xs text-rose-400 font-semibold">${data.urgency}</p>
             </div>
           </div>
-          <button onclick="LaundryCalculator.loadPreset('executive')" class="text-xs text-sky-600 hover:text-sky-700 font-bold flex items-center gap-1 self-start sm:self-auto">
+          <button onclick="LaundryCalculator.loadPreset('executive')" class="text-xs text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1 self-start sm:self-auto">
             Book Spot Care <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-          <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100">
-            <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider block mb-1">✅ DO THIS RIGHT NOW</span>
-            <p class="text-xs sm:text-sm text-slate-700">${data.diyDo}</p>
+          <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/25">
+            <span class="text-xs font-bold text-emerald-300 uppercase tracking-wider block mb-1">✅ DO THIS RIGHT NOW</span>
+            <p class="text-xs sm:text-sm text-slate-300">${data.diyDo}</p>
           </div>
 
-          <div class="p-4 rounded-2xl bg-rose-50/60 border border-rose-100">
-            <span class="text-xs font-bold text-rose-800 uppercase tracking-wider block mb-1">❌ NEVER DO THIS</span>
-            <p class="text-xs sm:text-sm text-slate-700">${data.diyDont}</p>
+          <div class="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/25">
+            <span class="text-xs font-bold text-rose-300 uppercase tracking-wider block mb-1">❌ NEVER DO THIS</span>
+            <p class="text-xs sm:text-sm text-slate-300">${data.diyDont}</p>
           </div>
 
-          <div class="p-4 rounded-2xl bg-sky-50/60 border border-sky-100">
-            <span class="text-xs font-bold text-sky-800 uppercase tracking-wider block mb-1">🔬 TJ LAB PROTOCOL</span>
-            <p class="text-xs sm:text-sm text-slate-700">${data.tjProtocol || data.luminaProtocol}</p>
+          <div class="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/25">
+            <span class="text-xs font-bold text-cyan-300 uppercase tracking-wider block mb-1">🔬 TJ LAB PROTOCOL</span>
+            <p class="text-xs sm:text-sm text-slate-300">${data.tjProtocol || data.luminaProtocol}</p>
           </div>
         </div>
       </div>
